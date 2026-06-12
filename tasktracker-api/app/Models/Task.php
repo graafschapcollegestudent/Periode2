@@ -13,6 +13,9 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'is_done'];
+    protected $casts = [
+        'is_done' => 'boolean',
+    ];
     protected $primaryKey = 'id';
     
 

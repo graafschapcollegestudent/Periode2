@@ -20,8 +20,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string|max:255",
-            "description" => "nullable|string",
-            "status" => "boolean",
+            "is_done" => "boolean",
         ]);
 
         $task = Task::create($validated);
@@ -40,8 +39,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             "title" => "sometimes|required|string|max:255",
-            "description" => "sometimes|nullable|string",
-            "status" => "sometimes|boolean",
+            "is_done" => "sometimes|boolean",
         ]);
 
         $task->update($validated);
@@ -55,5 +53,23 @@ class TaskController extends Controller
         $task->delete();
 
         return response()->json(null, 204);
+    }
+
+    // PUT /api/task/{task}/complete
+    public function complete(Task $task)
+    {
+        $task->update([
+            'is_done' => true,
+        ]);
+
+        return response()->json($task);
+    }
+
+    // GET /api/task/complete
+    public function completed()
+    {
+        $tasks = Task::where('is_done', true)->get();
+
+        return response()->json($tasks);
     }
 }
