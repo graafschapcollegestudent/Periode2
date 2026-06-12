@@ -1,5 +1,5 @@
-name: CI + build only
-
+name: CI + build only 
+# CI test wijziging
 on:
   pull_request:
     branches:
@@ -33,3 +33,4 @@ jobs:
         with:
           name: test-results
           path: test-results/junit.xml
+          
